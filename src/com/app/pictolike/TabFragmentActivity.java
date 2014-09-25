@@ -15,7 +15,7 @@ public class TabFragmentActivity extends Activity {
 	ActionBar.Tab settingsTab;  
 
 	
-	//SettingsScreenActivity fragmentSettings = new SettingsScreenActivity();
+	SettingsScreenActivity fragmentSettings = new SettingsScreenActivity();
 
 
 	@Override
