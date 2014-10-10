@@ -9,5 +9,11 @@
     <string name="Email">E-mail</string>
     <string name="resetPassword">Repeat Password</string>
     
-    
+    <string-array name="settings_array">
+        <item >A</item>
+        <item >A</item>
+        <item >A</item>
+        <item >A</item>
+        <item >A</item>
+    </string-array>
 </resources>

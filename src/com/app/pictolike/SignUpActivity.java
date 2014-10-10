@@ -1,30 +1,22 @@
 package com.app.pictolike;
 
 import java.util.Calendar;
+import java.util.Scanner;
 
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
-import android.graphics.drawable.ColorDrawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.text.InputType;
+import android.provider.Settings.Secure;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.animation.Animation;
-import android.view.animation.Animation.AnimationListener;
-import android.view.animation.AnimationUtils;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.Toast;
-
-import android.provider.Settings.Secure;
 
 import com.app.pictolike.mysql.MySQLCommand;
 import com.app.pictolike.mysql.MySQLConnect;
@@ -166,6 +158,10 @@ public class SignUpActivity extends Activity  {
 			Toast.makeText(SignUpActivity.this, "Please Fill Email", Toast.LENGTH_SHORT).show();
 			return false;
 		}
+		if(SignUpEventHandler.EmailInputCheck(m_edtEmail.getText())){
+			Toast.makeText(SignUpActivity.this, "Wrong Input Email Address", Toast.LENGTH_SHORT).show();
+			return false;
+		}
 		else if(m_edtPassword.getText().toString().isEmpty()){
 			Toast.makeText(SignUpActivity.this, "Please Fill Password", Toast.LENGTH_SHORT).show();
 			return false;
@@ -207,7 +203,44 @@ public class SignUpActivity extends Activity  {
 				Secure.ANDROID_ID);
 		return deviceId;
 	}
-	
+	class FinddayFromFile extends AsyncTask<String, Void, String>
+	{
+
+		@Override
+		protected String doInBackground(String... params) {
+			String Day=""; 
+			try{ 	
+			 Scanner sc=new Scanner(getResources().openRawResource(R.raw.weekday));
+			        while(sc.hasNext())
+			        { 
+			        	String str=sc.nextLine();
+			        	if(str.contains(params[0]))
+			        	{
+			        		Day=str;
+			        		break;
+			        	}
+			        }
+			        sc.close();
+			        }catch(Exception e)
+			        {
+			        	Log.e("error", e.toString());
+			        }
+			if(!Day.equals(""))
+			{
+				String array[]=Day.split(",");
+				Log.d(array[0], array[1]);
+			return array[1];
+			}
+			else
+				return "";
+		}
+		@Override
+		protected void onPostExecute(String result) {
+			if(!result.equals(""))
+		Toast.makeText(SignUpActivity.this,"did you know that you were born on a "+result+"?!" ,Toast.LENGTH_LONG).show();
+			super.onPostExecute(result);
+		}
+	}
 
 	@Override
 	@Deprecated
@@ -219,6 +252,7 @@ public class SignUpActivity extends Activity  {
 				int selectedMonth, int selectedDay) {
 			m_edtBirthday.setText(selectedDay + " / " + (selectedMonth + 1) + " / "
 					+ selectedYear);
+			new FinddayFromFile().execute((selectedMonth + 1)+"-"+selectedDay+"-"+selectedYear);
 		}
 	};
 }

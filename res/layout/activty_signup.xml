@@ -4,11 +4,9 @@
     android:layout_height="fill_parent"
     android:background="@android:color/white">
 
-    <ScrollView
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent" >
 
         <LinearLayout
+            android:layout_centerVertical="true"
             android:id="@+id/SignUpActivtiy"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -103,6 +101,5 @@
                 android:background="@drawable/happy_pictoliking_selector" />
         </LinearLayout>
 
-    </ScrollView>
 
 </RelativeLayout>

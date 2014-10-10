@@ -1,30 +1,22 @@
 package com.app.pictolike;
 
-import java.net.InetAddress;
-import java.net.UnknownHostException;
-
-import com.app.pictolike.data.MyPeople;
-import com.app.pictolike.mysql.MySQLCommand;
-import com.app.pictolike.mysql.MySQLConnect;
-
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.drawable.ColorDrawable;
+import android.graphics.Rect;
 import android.os.Bundle;
-
-import android.os.StrictMode;
-
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.animation.Animation;
-import android.view.animation.Animation.AnimationListener;
-import android.view.animation.AnimationUtils;
+import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
+
+import com.app.pictolike.data.MyPeople;
+import com.app.pictolike.mysql.MySQLCommand;
+import com.app.pictolike.mysql.MySQLConnect;
 
 public class SignInActivity extends Activity  {
 	ImageView SignIn,Join;
@@ -58,7 +50,7 @@ public class SignInActivity extends Activity  {
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		
+	
 		/** Code to change Action Bar Color */
 		ActionBar bar = getActionBar();
 		bar.hide();
